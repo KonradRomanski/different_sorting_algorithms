@@ -8,16 +8,16 @@ namespace different_sorting_algorithms
     {
         static void Main(string[] args)
         {
-            const int cases_quantity = 10;
-            const int sorts_quantity = 3;
-            const int cases_length = 15;
+            const int cases_quantity = 100;
+            const int sorts_quantity = 4;
+            const int cases_length = 16;
             const int upper_number_size_border = 30;
-            Functions functions = new Functions();
+            IntArraysGenerator intarraysgenerator = new IntArraysGenerator();
             Sorts sorts = new Sorts();
             Stopwatch stopwatch = new Stopwatch();
 
-            string[] methods = new string[] {"Insertion Sort", "Selection Sort", "Heap Sort" }; //names of methods
-            int[] numbers = functions.Rand(cases_length, upper_number_size_border); // temporary array of elements to sort
+            string[] methods = new string[] {"Insertion Sort", "Selection Sort", "Heap Sort", "CountingSort" }; //names of methods
+            int[] numbers = new int[cases_length]; // temporary array of elements to sort
             double[,] test_cases = new double[sorts_quantity, cases_quantity]; //time data
             int[][] test_cases_numbers = new int[cases_quantity][]; //numbers for testing (read from file)
             for (int i = 0; i < cases_quantity; i++) test_cases_numbers[i] = new int[cases_length];
@@ -25,41 +25,32 @@ namespace different_sorting_algorithms
             string data_to_write = ""; //for saving in files
             char question = 'n'; 
 
-            //START of creating new data
+            //Creating new data
             Console.Write("Wanna create new data file? y/n: ");
             question = (char)Console.Read();
 
             if (question == 'y')
             {
-                
-                data_to_write += "0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14\n";
-                data_to_write += "14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0\n";
-
-                for (int i = 2; i < cases_quantity; i++)
-                {
-                    numbers = functions.Rand(cases_length, upper_number_size_border);
-                    data_to_write += string.Join(", ", numbers) + "\n";
-                }
-                //saving data_to_write into file
-                System.IO.File.WriteAllText(@"C:\Users\konra\source\repos\AISD\different_sorting_algorithms\cases.txt", data_to_write);
-                data_to_write = "";
-                Array.Clear(numbers, 0, numbers.Length);
+                intarraysgenerator.Rand(cases_quantity, cases_length, upper_number_size_border);
             }
-
-            //END of creating new test data
 
             //reading data from file into string[]
             string[] cases_file = System.IO.File.ReadAllLines(@"C:\Users\konra\source\repos\AISD\different_sorting_algorithms\cases.txt");
 
             //converting string[] into int[]
             for (int i = 0; i < cases_file.Length; i++) test_cases_numbers[i] = Array.ConvertAll(cases_file[i].Split(", "), int.Parse);
+            
+            stopwatch.Reset();
 
+            sorts.InsertionSort(numbers);
+            sorts.SelectionSort(numbers);
+            sorts.HeapSort(numbers);
 
 
             for (int i = 0; i < cases_quantity; i++)
             {
-                Console.Write($"{i}\nNormal array:   ");
-                functions.Display(test_cases_numbers[i]);
+                Console.Write($">> {i}\nNormal array:   ");
+                Console.Write($"{String.Join(" ", test_cases_numbers[i])} ");
                 Console.WriteLine();
 
 
@@ -68,7 +59,7 @@ namespace different_sorting_algorithms
                 sorts.InsertionSort(numbers);
                 stopwatch.Stop();
                 Console.Write($"{methods[0]}: ");
-                functions.Display(numbers);
+                Console.Write($"{String.Join(" ", numbers)} "); // displaying int[]
                 time = stopwatch.Elapsed.TotalMilliseconds;
                 Console.Write($"Time elapsed: {time}\n");
                 stopwatch.Reset();
@@ -80,7 +71,7 @@ namespace different_sorting_algorithms
                 sorts.SelectionSort(numbers);
                 stopwatch.Stop();
                 Console.Write($"{methods[1]}: ");
-                functions.Display(numbers);
+                Console.Write($"{String.Join(" ", numbers)} ");
                 time = stopwatch.Elapsed.TotalMilliseconds;
                 Console.Write($"Time elapsed: {time}\n");
                 stopwatch.Reset();
@@ -92,7 +83,19 @@ namespace different_sorting_algorithms
                 sorts.HeapSort(numbers);
                 stopwatch.Stop();
                 Console.Write($"{methods[2]}:      ");
-                functions.Display(numbers);
+                Console.Write($"{String.Join(" ", numbers)} ");
+                time = stopwatch.Elapsed.TotalMilliseconds;
+                Console.Write($"Time elapsed: {time}\n");
+                stopwatch.Reset();
+                test_cases[2, i] = time;
+
+
+                test_cases_numbers[i].CopyTo(numbers, 0);
+                stopwatch.Start();
+                sorts.CountingSort(numbers);
+                stopwatch.Stop();
+                Console.Write($"{methods[3]}:      ");
+                Console.Write($"{String.Join(" ", numbers)} ");
                 time = stopwatch.Elapsed.TotalMilliseconds;
                 Console.Write($"Time elapsed: {time}\n");
                 stopwatch.Reset();
@@ -102,10 +105,8 @@ namespace different_sorting_algorithms
             //saving data into file
             for(int i = 0; i < methods.Length; i++)
             {
-                if (i < methods.Length - 1)
-                    data_to_write += methods[i] + ";";
-                else
-                    data_to_write += methods[i];
+                if (i < methods.Length - 1) data_to_write += methods[i] + ";";
+                else data_to_write += methods[i];
             }
             data_to_write += "\n";
 
