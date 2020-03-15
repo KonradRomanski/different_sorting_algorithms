@@ -16,7 +16,7 @@ namespace different_sorting_algorithms
             Sorts sorts = new Sorts();
             Stopwatch stopwatch = new Stopwatch();
 
-            string[] methods = new string[] {"Insertion Sort", "Selection Sort", "Heap Sort", "CountingSort" }; //names of methods
+            string[] methods = new string[] {"Insertion Sort", "Selection Sort", "Heap Sort", "CountingSort", "MergeSort", "QuickSort", "CountingSort", "ShellSort" }; //names of methods
             int[] numbers = new int[cases_length]; // temporary array of elements to sort
             double[,] test_cases = new double[sorts_quantity, cases_quantity]; //time data
             int[][] test_cases_numbers = new int[cases_quantity][]; //numbers for testing (read from file)
@@ -92,9 +92,9 @@ namespace different_sorting_algorithms
 
                 test_cases_numbers[i].CopyTo(numbers, 0);
                 stopwatch.Start();
-                sorts.CountingSort(numbers);
+                sorts.QuickSort(numbers);
                 stopwatch.Stop();
-                Console.Write($"{methods[3]}:      ");
+                Console.Write($"{methods[5]}:      ");
                 Console.Write($"{String.Join(" ", numbers)} ");
                 time = stopwatch.Elapsed.TotalMilliseconds;
                 Console.Write($"Time elapsed: {time}\n");
