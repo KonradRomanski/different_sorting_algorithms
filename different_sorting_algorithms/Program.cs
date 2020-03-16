@@ -9,14 +9,14 @@ namespace different_sorting_algorithms
         static void Main(string[] args)
         {
             const int cases_quantity = 100;
-            const int sorts_quantity = 4;
+            const int sorts_quantity = 5;
             const int cases_length = 16;
             const int upper_number_size_border = 30;
             IntArraysGenerator intarraysgenerator = new IntArraysGenerator();
             Sorts sorts = new Sorts();
             Stopwatch stopwatch = new Stopwatch();
 
-            string[] methods = new string[] {"Insertion Sort", "Selection Sort", "Heap Sort", "CountingSort", "MergeSort", "QuickSort", "CountingSort", "ShellSort" }; //names of methods
+            string[] methods = new string[] {"Insertion Sort", "Selection Sort", "Heap Sort", "Counting Sort", "Merge Sort", "Quick Sort", "Counting Sort", "Shell Sort" }; //names of methods
             int[] numbers = new int[cases_length]; // temporary array of elements to sort
             double[,] test_cases = new double[sorts_quantity, cases_quantity]; //time data
             int[][] test_cases_numbers = new int[cases_quantity][]; //numbers for testing (read from file)
@@ -26,8 +26,8 @@ namespace different_sorting_algorithms
             char question = 'n'; 
 
             //Creating new data
-            Console.Write("Wanna create new data file? y/n: ");
-            question = (char)Console.Read();
+            //Console.Write("Wanna create new data file? y/n: ");
+            //question = (char)Console.Read();
 
             if (question == 'y')
             {
@@ -92,14 +92,50 @@ namespace different_sorting_algorithms
 
                 test_cases_numbers[i].CopyTo(numbers, 0);
                 stopwatch.Start();
-                sorts.QuickSort(numbers);
+                sorts.CountingSort(numbers);
                 stopwatch.Stop();
-                Console.Write($"{methods[5]}:      ");
+                Console.Write($"{methods[3]}:  ");
                 Console.Write($"{String.Join(" ", numbers)} ");
                 time = stopwatch.Elapsed.TotalMilliseconds;
                 Console.Write($"Time elapsed: {time}\n");
                 stopwatch.Reset();
-                test_cases[2, i] = time;
+                test_cases[3, i] = time;
+
+
+                //test_cases_numbers[i].CopyTo(numbers, 0);
+                //stopwatch.Start();
+                //sorts.MergeSort(numbers);
+                //stopwatch.Stop();
+                //Console.Write($"{methods[4]}:      ");
+                //Console.Write($"{String.Join(" ", numbers)} ");
+                //time = stopwatch.Elapsed.TotalMilliseconds;
+                //Console.Write($"Time elapsed: {time}\n");
+                //stopwatch.Reset();
+                //test_cases[4, i] = time;
+
+
+                test_cases_numbers[i].CopyTo(numbers, 0);
+                stopwatch.Start();
+                sorts.QuickSort(numbers);
+                stopwatch.Stop();
+                Console.Write($"{methods[5]}:     ");
+                Console.Write($"{String.Join(" ", numbers)} ");
+                time = stopwatch.Elapsed.TotalMilliseconds;
+                Console.Write($"Time elapsed: {time}\n");
+                stopwatch.Reset();
+                test_cases[4, i] = time;
+
+
+                //test_cases_numbers[i].CopyTo(numbers, 0);
+                //stopwatch.Start();
+                //sorts.ShellSort(numbers);
+                //stopwatch.Stop();
+                //Console.Write($"{methods[6]}:      ");
+                //Console.Write($"{String.Join(" ", numbers)} ");
+                //time = stopwatch.Elapsed.TotalMilliseconds;
+                //Console.Write($"Time elapsed: {time}\n");
+                //stopwatch.Reset();
+                //test_cases[6, i] = time;
             }
 
             //saving data into file
