@@ -25,18 +25,18 @@ namespace different_sorting_algorithms
 
         public void InsertionSort(int[] numbers)
         {
-            for (int j = 1; j < numbers.Length; j++)
+            for (int i = 1; i < numbers.Length; i++)
             {
-                int key = numbers[j];
-                int i = j - 1;
+                int key = numbers[i];
+                int j = i - 1;
 
-                while(i >= 0 && numbers[i] > key)
+                while (j >= 0 && numbers[j] > key)
                 {
-                    numbers[i + 1] = numbers[i];
-                    i--;
+                    numbers[j + 1] = numbers[j];
+                    j--;
                 }
 
-                numbers[i + 1] = key;
+                numbers[j + 1] = key;
             }
         }
 
@@ -49,9 +49,9 @@ namespace different_sorting_algorithms
 
                 int max = j;
 
-                for(int i = j-1; i >= 0; i--)
+                for (int i = j - 1; i >= 0; i--)
                 {
-                    if(numbers[i] > numbers[max])
+                    if (numbers[i] > numbers[max])
                         max = i;
                 }
                 (numbers[j], numbers[max]) = (numbers[max], numbers[j]);
@@ -88,7 +88,7 @@ namespace different_sorting_algorithms
             if (l < heapsize && numbers[l] > numbers[i]) largest = l;
 
             if (r < heapsize && numbers[r] > numbers[largest]) largest = r;
-            
+
             if (largest != i)
             {
                 (numbers[i], numbers[largest]) = (numbers[largest], numbers[i]);
@@ -97,11 +97,18 @@ namespace different_sorting_algorithms
 
         }
 
-        
 
-        public void MergeSort()
+
+        public void MergeSort(int[] numbers)
         {
-            
+            int[] B = new int[numbers.Length];
+            MergeSortMain(numbers, 0, numbers.Length - 1, B);
+        }
+
+
+        private void MergeSortMain(int[] numbers, int l, int r, int[] B)
+        {
+
         }
 
 
@@ -162,33 +169,6 @@ namespace different_sorting_algorithms
         //    }
         //}
 
-        //public void QuickSort(int[] numbers)
-        //{
-        //    QuickSortMain(numbers, 0, numbers.Length - 1);
-        //}
-
-        //private void QuickSortMain(int[] numbers, int left, int right)
-        //{
-        //    int x = numbers[(left + right) / 2];
-        //    int i = left;
-        //    int j = right;
-        //    do
-        //    {
-
-        //        while (numbers[i] < x) i++;
-        //        while (numbers[j] > x) j--;
-        //        if (i <= j) 
-        //        { 
-        //            (numbers[i], numbers[j]) = (numbers[j], numbers[i]);
-        //            i++;
-        //            j--; 
-        //        }
-
-        //    } while (i <= j);
-
-        //    if (left < j) QuickSortMain(numbers, left, j);
-        //    if (i < right) QuickSortMain(numbers, i, right);
-        //}
 
 
         public void QuickSort(int[] numbers)
@@ -213,7 +193,7 @@ namespace different_sorting_algorithms
             int pivot = numbers[right];
             //int pivot = numbers[(right + left) / 2]
             int i = left - 1;
-            
+
             for (int j = left; j < right; j++)
             {
                 if (numbers[j] <= pivot)
@@ -252,24 +232,35 @@ namespace different_sorting_algorithms
         }
 
 
-        public void ShellSort()
+        public void ShellSort(int[] numbers)
         {
+            int array_size = numbers.Length;
+
+            for (int gap = array_size / 2; gap > 0; gap /= 2)
+            {
+
+                for (int i = gap; i < array_size; i++)
+                {
+
+                    int key = numbers[i];
+
+                    //int j;
+                    //for (j = i; j >= gap && numbers[j - gap] > key; j -= gap) numbers[j] = numbers[j - gap];
+
+                    int j = i - gap;
+                    while (j >= 0 && numbers[j] > key)
+                    {
+                        numbers[j + gap] = numbers[j];
+                        j -= gap;
+                    }
+
+                    numbers[j + gap] = key;
+                    //numbers[j] = key;
+                }
+            }
+
 
         }
-
-
-//        SHELL-SORT(A)
-// 1  t ‹ (lg length[A])
-// 2  for s ‹ t - 1 downto 0
-// 3     do h ‹ 2 ^ s
-// 4        for j ‹ h + 1 to length[A]
-// 5           do key ‹ A[j]
-// 6              i ‹ j - h
-// 7              while (i > 0) i(A[i] > key)
-// 8                 do A[i + h] ‹ A[i]
-// 9                    i ‹ i - h
-//10              A[i + h] ‹ key
-//11  return A
 
     }
 
