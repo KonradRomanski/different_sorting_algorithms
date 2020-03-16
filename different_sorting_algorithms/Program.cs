@@ -9,7 +9,7 @@ namespace different_sorting_algorithms
         static void Main(string[] args)
         {
             const int cases_quantity = 100;
-            const int sorts_quantity = 6;
+            const int sorts_quantity = 7;
             const int cases_length = 16;
             const int upper_number_size_border = 30;
             IntArraysGenerator intarraysgenerator = new IntArraysGenerator();
@@ -102,16 +102,16 @@ namespace different_sorting_algorithms
                 test_cases[3, i] = time;
 
 
-                //test_cases_numbers[i].CopyTo(numbers, 0);
-                //stopwatch.Start();
-                //sorts.MergeSort(numbers);
-                //stopwatch.Stop();
-                //Console.Write($"{methods[4]}:      ");
-                //Console.Write($"{String.Join(" ", numbers)} ");
-                //time = stopwatch.Elapsed.TotalMilliseconds;
-                //Console.Write($"Time elapsed: {time}\n");
-                //stopwatch.Reset();
-                //test_cases[4, i] = time;
+                test_cases_numbers[i].CopyTo(numbers, 0);
+                stopwatch.Start();
+                sorts.MergeSort(numbers);
+                stopwatch.Stop();
+                Console.Write($"{methods[4]}:     ");
+                Console.Write($"{String.Join(" ", numbers)} ");
+                time = stopwatch.Elapsed.TotalMilliseconds;
+                Console.Write($"Time elapsed: {time}\n");
+                stopwatch.Reset();
+                test_cases[4, i] = time;
 
 
                 test_cases_numbers[i].CopyTo(numbers, 0);
@@ -123,7 +123,7 @@ namespace different_sorting_algorithms
                 time = stopwatch.Elapsed.TotalMilliseconds;
                 Console.Write($"Time elapsed: {time}\n");
                 stopwatch.Reset();
-                test_cases[4, i] = time;
+                test_cases[5, i] = time;
 
 
                 test_cases_numbers[i].CopyTo(numbers, 0);
@@ -135,7 +135,7 @@ namespace different_sorting_algorithms
                 time = stopwatch.Elapsed.TotalMilliseconds;
                 Console.Write($"Time elapsed: {time}\n");
                 stopwatch.Reset();
-                test_cases[5, i] = time;
+                test_cases[6, i] = time;
             }
 
             //saving data into file

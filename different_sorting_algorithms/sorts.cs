@@ -102,37 +102,95 @@ namespace different_sorting_algorithms
         public void MergeSort(int[] numbers)
         {
             int[] B = new int[numbers.Length];
-            MergeSortMain(numbers, 0, numbers.Length - 1, B);
+            MergeSortMain(numbers, 0, numbers.Length - 1);
         }
 
 
-        private void MergeSortMain(int[] numbers, int l, int r, int[] B)
+        //private void MergeSortMain(int[] numbers, int left, int right, int[] B)
+        //{
+        //    int m = left + (right - left) / 2;
+
+        //    if (left < right) MergeSortMain(numbers, left, m, B);
+        //    if (left < right) MergeSortMain(numbers, m + 1, right, B);
+
+        //    int i = left;
+        //    int j = m;
+
+        //    for (int k = 0; k < right; k++)
+        //    {
+        //        if ((i <= m && j <= right) || ((i <= m && j <= right) && numbers[i] <= numbers[j]))
+        //        {
+        //            B[k] = numbers[i];
+        //            i++;
+        //        }
+        //        else
+        //        {
+        //            B[k] = numbers[j];
+        //            j++;
+        //        }
+
+        //    }
+
+        //    for (int k = 0; k < right; k++) numbers[k] = B[k];
+        //}
+
+
+        private void MergeSortMain(int[] numbers, int left, int right)
         {
+            if (left < right)
+            {
+                int m = left + (right - left) / 2;
 
+                MergeSortMain(numbers, left, m);
+                MergeSortMain(numbers, m + 1, right);
+
+                Merge(numbers, left, m, right);
+            }
         }
 
+        private void Merge(int[] numbers, int left, int m, int right)
+        {
+            int i, j, k;
+            int n1 = m - left + 1;
+            int n2 = right - m;
+            int[] L = new int[n1];
+            int[] R = new int[n2];
 
-        //        MERGE-SORT-MAIN(A)
-        // 1  new B(length[A])
-        // 2  MERGE-SORT(A, 1, length[A], B)
-        // 3  return A
-        //MERGE-SORT(A, l, r, B)
-        // 1  m = (l + r) / 2
-        // 2  if (m - l) > 0
-        // 3   then MERGE-SORT(A, l, m, B)
-        // 4  if (r - m) > 1
-        // 5   then MERGE-SORT(A, m + 1, r, B)
-        // 6  i = l
-        // 7  j = m + 1
-        // 8  for k = l to r
-        // 9     do if ((i <= m) i(j > r)) lub(((i <= m) i(j <= r)) i(A[i] <= A[j]))
-        //10         then B[k] = A[i]
-        //11              i = i + 1
-        //12         else B[k] = A[j]
-        //13              j = j + 1
-        //14  for k = l to r
-        //15     do A[k] = B[k]
+            for (i = 0; i < n1; i++) L[i] = numbers[left + i];
+            for (j = 0; j < n2; j++) R[j] = numbers[m + 1 + j];
 
+            i = 0;
+            j = 0;
+            k = left;
+            while (i < n1 && j < n2)
+            {
+                if (L[i] <= R[j])
+                {
+                    numbers[k] = L[i];
+                    i++;
+                }
+                else
+                {
+                    numbers[k] = R[j];
+                    j++;
+                }
+                k++;
+            }
+
+            while (i < n1)
+            {
+                numbers[k] = L[i];
+                i++;
+                k++;
+            }
+
+            while (j < n2)
+            {
+                numbers[k] = R[j];
+                j++;
+                k++;
+            }
+        }
 
 
         //public void QuickSort(int[] numbers)
