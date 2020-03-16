@@ -162,32 +162,70 @@ namespace different_sorting_algorithms
         //    }
         //}
 
+        //public void QuickSort(int[] numbers)
+        //{
+        //    QuickSortMain(numbers, 0, numbers.Length - 1);
+        //}
+
+        //private void QuickSortMain(int[] numbers, int left, int right)
+        //{
+        //    int x = numbers[(left + right) / 2];
+        //    int i = left;
+        //    int j = right;
+        //    do
+        //    {
+
+        //        while (numbers[i] < x) i++;
+        //        while (numbers[j] > x) j--;
+        //        if (i <= j) 
+        //        { 
+        //            (numbers[i], numbers[j]) = (numbers[j], numbers[i]);
+        //            i++;
+        //            j--; 
+        //        }
+
+        //    } while (i <= j);
+
+        //    if (left < j) QuickSortMain(numbers, left, j);
+        //    if (i < right) QuickSortMain(numbers, i, right);
+        //}
+
+
         public void QuickSort(int[] numbers)
         {
             QuickSortMain(numbers, 0, numbers.Length - 1);
         }
 
+
         private void QuickSortMain(int[] numbers, int left, int right)
         {
-            int x = numbers[(left + right) / 2];
-            int i = left;
-            int j = right;
-            do
+            if (left < right)
             {
+                int pivot = Partition(numbers, left, right);
+                QuickSortMain(numbers, left, pivot - 1);
+                QuickSortMain(numbers, pivot + 1, right);
+            }
+        }
 
-                while (numbers[i] < x) i++;
-                while (numbers[j] > x) j--;
-                if (i <= j) 
-                { 
-                    (numbers[i], numbers[j]) = (numbers[j], numbers[i]);
+
+        private int Partition(int[] numbers, int left, int right)
+        {
+            int pivot = numbers[right];
+            //int pivot = numbers[(right + left) / 2]
+            int i = left - 1;
+            
+            for (int j = left; j < right; j++)
+            {
+                if (numbers[j] <= pivot)
+                {
                     i++;
-                    j--; 
+                    (numbers[i], numbers[j]) = (numbers[j], numbers[i]);
                 }
+            }
 
-            } while (i <= j);
+            (numbers[i + 1], numbers[right]) = (numbers[right], numbers[i + 1]);
 
-            if (left < j) QuickSortMain(numbers, left, j);
-            if (i < right) QuickSortMain(numbers, i, right);
+            return i + 1;
         }
 
 
