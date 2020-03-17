@@ -8,7 +8,7 @@ namespace different_sorting_algorithms
     {
         static void Main(string[] args)
         {
-            const int cases_quantity = 100;
+            const int cases_quantity = 1000;
             const int sorts_quantity = 7;
             const int cases_length = 16;
             const int upper_number_size_border = 30;
@@ -23,11 +23,11 @@ namespace different_sorting_algorithms
             for (int i = 0; i < cases_quantity; i++) test_cases_numbers[i] = new int[cases_length];
             double time; //temporary variable for time handling
             string data_to_write = ""; //for saving in files
-            char question = 'n'; 
+            char question = 'n';
 
             //Creating new data
-            //Console.Write("Wanna create new data file? y/n: ");
-            //question = (char)Console.Read();
+            Console.Write("Wanna create new data file? y/n: ");
+            question = (char)Console.Read();
 
             if (question == 'y')
             {
@@ -45,6 +45,10 @@ namespace different_sorting_algorithms
             sorts.InsertionSort(numbers);
             sorts.SelectionSort(numbers);
             sorts.HeapSort(numbers);
+            sorts.CountingSort(numbers);
+            sorts.MergeSort(numbers);
+            sorts.QuickSort(numbers);
+            sorts.ShellSort(numbers);
 
 
             for (int i = 0; i < cases_quantity; i++)
