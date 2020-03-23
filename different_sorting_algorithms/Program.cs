@@ -9,7 +9,8 @@ namespace different_sorting_algorithms
         static void Main(string[] args)
         {
             Parts parts = new Parts();
-            parts.Part1();
+            //parts.Part1();
+            parts.Part2();
         }
     }
 }

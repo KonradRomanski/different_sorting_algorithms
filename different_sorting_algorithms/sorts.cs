@@ -229,26 +229,48 @@ namespace different_sorting_algorithms
 
 
 
-        public void QuickSort(int[] numbers)
+        public void QuickSort(int[] numbers, int p)
         {
-            QuickSortMain(numbers, 0, numbers.Length - 1);
+            QuickSortMain(numbers, 0, numbers.Length - 1, p);
         }
 
 
-        private void QuickSortMain(int[] numbers, int left, int right)
+        private void QuickSortMain(int[] numbers, int left, int right, int p)
         {
             if (left < right)
             {
-                int pivot = Partition(numbers, left, right);
-                QuickSortMain(numbers, left, pivot - 1);
-                QuickSortMain(numbers, pivot + 1, right);
+                int pivot = Partition(numbers, left, right, p);
+                QuickSortMain(numbers, left, pivot - 1, p);
+                QuickSortMain(numbers, pivot + 1, right, p);
             }
         }
 
 
-        private int Partition(int[] numbers, int left, int right)
+        private int Partition(int[] numbers, int left, int right, int p)
         {
-            int pivot = numbers[right];
+            Random rand = new Random();
+            int pivot = 0;
+
+            switch (p)
+            {
+                case 0:
+                    {
+                        pivot = numbers[right];
+                        break;
+                    }
+                case 1:
+                    {
+                        pivot = numbers[((right + left) / 2)];
+                        break;
+                    }
+                case 2:
+                    {
+                        pivot = rand.Next(right);
+                        break;
+                    }
+            }
+
+
             //int pivot = numbers[(right + left) / 2]
             int i = left - 1;
 

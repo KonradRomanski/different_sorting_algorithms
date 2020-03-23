@@ -78,7 +78,7 @@ namespace different_sorting_algorithms
             sorts.HeapSort(numbers);
             sorts.CountingSort(numbers);
             sorts.MergeSort(numbers);
-            sorts.QuickSort(numbers);
+            sorts.QuickSort(numbers, 0);
             sorts.ShellSort(numbers);
 
             //Console.Write($">> {i}\nNormal array:   ");
@@ -693,6 +693,134 @@ namespace different_sorting_algorithms
 
             Console.WriteLine(data_to_write);
             System.IO.File.WriteAllText(@"C:\Users\konra\source\repos\AISD\different_sorting_algorithms\data_MergeSort.txt", data_to_write);
+        }
+        
+
+        public void Part2()
+        {
+            const int cases_quantity = 20;
+            Sorts sorts = new Sorts();
+            Stopwatch stopwatch = new Stopwatch();
+            int[][] test_cases_numbers = new int[cases_quantity * 5][];
+            for (int i = 0; i < cases_quantity * 5; i++) test_cases_numbers[i] = new int[10];
+            
+            double[][] test_cases = new double[3][];
+            for (int i = 0; i < 3; i++) test_cases[i] = new double[cases_quantity];
+            int[] numbers = new int[10];
+            double time = 0;
+
+            sorts.QuickSort(numbers, 0);
+
+            //reading data from file into string[]
+            string[] cases_file = System.IO.File.ReadAllLines(@"C:\Users\konra\source\repos\AISD\different_sorting_algorithms\cases_Hillock.txt");
+
+            //converting string[] into int[]
+            for (int i = 0; i < cases_file.Length; i++) test_cases_numbers[i] = Array.ConvertAll(cases_file[i].Split(", "), int.Parse);
+
+
+            //for (int i = 0; i < cases_file.Length; i++)
+            //{
+            //    Console.WriteLine(String.Join(" ", test_cases_numbers[i]));
+            //}
+
+
+            for (int i = 0; i < cases_quantity * 5; i += 5)
+            {
+                double time_sum = 0;
+                numbers = new int[test_cases_numbers[i].Length]; // temporary array of elements to sort
+
+
+                for (int j = 0; j < 5; j++)
+                {
+                    test_cases_numbers[i + j].CopyTo(numbers, 0); // copying data from test_data to numbers
+                    stopwatch.Start();
+                    sorts.QuickSort(numbers, 0);
+                    stopwatch.Stop();
+
+                    Console.Write("QuickSortEnd: ");
+                    Console.Write($"{String.Join(" ", numbers)} "); // displaying int[]
+                    time = stopwatch.Elapsed.TotalMilliseconds;
+                    Console.Write($"Time elapsed: {time}\n");
+                    stopwatch.Reset();
+                    time_sum += time;
+                }
+
+                time_sum /= 5;
+                test_cases[0][i / 5] = time_sum;
+            }
+
+            for (int i = 0; i < cases_quantity * 5; i += 5)
+            {
+                double time_sum = 0;
+                numbers = new int[test_cases_numbers[i].Length]; // temporary array of elements to sort
+
+
+                for (int j = 0; j < 5; j++)
+                {
+                    test_cases_numbers[i + j].CopyTo(numbers, 0); // copying data from test_data to numbers
+                    stopwatch.Start();
+                    sorts.QuickSort(numbers, 1);
+                    stopwatch.Stop();
+
+                    Console.Write("QuickSortMiddle: ");
+                    Console.Write($"{String.Join(" ", numbers)} "); // displaying int[]
+                    time = stopwatch.Elapsed.TotalMilliseconds;
+                    Console.Write($"Time elapsed: {time}\n");
+                    stopwatch.Reset();
+                    time_sum += time;
+                }
+
+                time_sum /= 5;
+                test_cases[1][i / 5] = time_sum;
+            }
+
+            for (int i = 0; i < cases_quantity * 5; i += 5)
+            {
+                double time_sum = 0;
+                numbers = new int[test_cases_numbers[i].Length]; // temporary array of elements to sort
+
+
+                for (int j = 0; j < 5; j++)
+                {
+                    test_cases_numbers[i + j].CopyTo(numbers, 0); // copying data from test_data to numbers
+                    stopwatch.Start();
+                    sorts.QuickSort(numbers, 2);
+                    stopwatch.Stop();
+
+                    Console.Write("QuickSortRandom: ");
+                    Console.Write($"{String.Join(" ", numbers)} "); // displaying int[]
+                    time = stopwatch.Elapsed.TotalMilliseconds;
+                    Console.Write($"Time elapsed: {time}\n");
+                    stopwatch.Reset();
+                    time_sum += time;
+                }
+
+                time_sum /= 5;
+                test_cases[2][i / 5] = time_sum;
+            }
+
+            //data saving
+            string data_to_write = "QuickSortEnd;QuickSortMiddle;QuickSortRandom;\n";
+
+            for (int item = 0; item < cases_quantity; item++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (j < 3) data_to_write += test_cases[j][item] + ";";
+                    else data_to_write += test_cases[j][item];
+                }
+                data_to_write += "\n";
+            }
+
+            Console.WriteLine(data_to_write);
+            System.IO.File.WriteAllText(@"C:\Users\konra\source\repos\AISD\different_sorting_algorithms\data_QuickSort.txt", data_to_write);
+
+
+            for (int i = 0; i < 3; i++)
+            {
+                Console.WriteLine(String.Join(" ", test_cases[i]));
+            }
+
         }
     }
 }
