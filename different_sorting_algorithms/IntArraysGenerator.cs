@@ -158,45 +158,46 @@ namespace different_sorting_algorithms
         private int[] Hillock(int array_length, int upper_border)
         {
             int[] result = new int[array_length];
-            int[] temporary = new int[array_length];
+            int temp1 = (int)Math.Floor(array_length / 2.0);
+            int temp2 = (int)Math.Ceiling(array_length / 2.0);
+            int[] temporary1 = new int[temp1];
+            int[] temporary2 = new int[temp2];
 
-            for (int item = 0; item < array_length; item++)
-            {
-                result[item] = rand.Next(upper_border);
-                temporary[item] = rand.Next(upper_border);
-            }
-            Array.Sort(result);
-            Array.Sort(temporary);
-            Array.Reverse(temporary);
+            for (int item = 0; item < array_length; item++) result[item] = 5555;
+            for (int item = 0; item < temp1; item++) temporary1[item] = rand.Next(upper_border);
+            for (int item = 0; item < temp2; item++) temporary2[item] = rand.Next(upper_border);
 
-            for (int item = array_length/2; item < array_length; item++)
-            {
-                result[item] = temporary[item];
-            }
+            Array.Sort(temporary1);
+            Array.Sort(temporary2);
+            Array.Reverse(temporary2);
+
+            for (int item = 0; item < temp1; item++) result[item] = temporary1[item];
+            for (int item = temp2; item < array_length; item++) result[item] = temporary2[item - temp2];
 
             return result;
         }
 
 
+
         private int[] Dale(int array_length, int upper_border)
         {
             int[] result = new int[array_length];
-            int[] temporary = new int[array_length];
+            int temp1 = (int)Math.Floor(array_length / 2.0);
+            int temp2 = (int)Math.Ceiling(array_length / 2.0);
+            int[] temporary1 = new int[temp1];
+            int[] temporary2 = new int[temp2];
 
-            for (int item = 0; item < array_length; item++)
-            {
-                result[item] = rand.Next(upper_border);
-                temporary[item] = rand.Next(upper_border);
-            }
-            Array.Sort(result);
-            Array.Sort(temporary);
-            Array.Reverse(result);
+            for (int item = 0; item < array_length; item++) result[item] = 5555;
+            for (int item = 0; item < temp1; item++) temporary1[item] = rand.Next(upper_border);
+            for (int item = 0; item < temp2; item++) temporary2[item] = rand.Next(upper_border);
 
-            for (int item = array_length/2; item < array_length; item++)
-            {
-                result[item] = temporary[item];
-            }
+            Array.Sort(temporary1);
+            Array.Sort(temporary2);
+            Array.Reverse(temporary1);
 
+            for (int item = 0; item < temp1; item++) result[item] = temporary1[item];
+            for (int item = temp2; item < array_length; item++) result[item] = temporary2[item - temp2];
+            
             return result;
         }
     }
