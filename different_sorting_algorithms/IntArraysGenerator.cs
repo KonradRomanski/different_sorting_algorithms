@@ -27,48 +27,80 @@ namespace different_sorting_algorithms
 
         public void Rand(int number_of_cases, int array_length, int upper_border)
         {
+            const int add = 500;
             string data_to_file = "";
-            var times = 0;
 
-            data_to_file += "0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14\n";
+            //data_to_file += "0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14\n";
 
-            for (int i = 1; i < (int)(Math.Ceiling(0.18*number_of_cases)); i++)
+            for (int i = 0; i < number_of_cases; i++)
             {
-                data_to_file += string.Join(", ", Increasing(array_length, upper_border)) + "\n";
-                times++;
+                data_to_file += string.Join(", ", Increasing(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Increasing(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Increasing(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Increasing(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Increasing(array_length + add * i, upper_border)) + "\n";
             }
-            
-           for (int i = 0; i < (int)(Math.Ceiling(0.18 * number_of_cases)); i++)
-            {
-                data_to_file += string.Join(", ", Decreasing(array_length, upper_border)) + "\n";
-                times++;
-            }
+            System.IO.File.WriteAllText(@"C:\Users\konra\source\repos\AISD\different_sorting_algorithms\cases_2_Increasing.txt", data_to_file);
+            data_to_file = "";
 
-            for (int i = 0; i < (int)(Math.Ceiling(0.1 * number_of_cases)); i++)
+            for (int i = 0; i < number_of_cases; i++)
             {
-                data_to_file += string.Join(", ", Constant(array_length, upper_border)) + "\n";
-                times++;
+                data_to_file += string.Join(", ", Decreasing(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Decreasing(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Decreasing(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Decreasing(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Decreasing(array_length + add * i, upper_border)) + "\n";
             }
-            
-            for (int i = 0; i < (int)(Math.Ceiling(0.18 * number_of_cases)); i++)
-            {
-                data_to_file += string.Join(", ", Hillock(array_length, upper_border)) + "\n";
-                times++;
-            }
-            
-            for (int i = 0; i < (int)(Math.Ceiling(0.18 * number_of_cases)); i++)
-            {
-                data_to_file += string.Join(", ", Dale(array_length, upper_border)) + "\n";
-                times++;
-            }
+            System.IO.File.WriteAllText(@"C:\Users\konra\source\repos\AISD\different_sorting_algorithms\cases_3_Decreasing.txt", data_to_file);
+            data_to_file = "";
 
-            while (times < number_of_cases - 1)
-            {
-                data_to_file += string.Join(", ", FullyRand(array_length, upper_border)) + "\n";
-                times++;
-            }
 
-            System.IO.File.WriteAllText(@"C:\Users\konra\source\repos\AISD\different_sorting_algorithms\cases.txt", data_to_file);
+            for (int i = 0; i < number_of_cases; i++)
+            {
+                data_to_file += string.Join(", ", Constant(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Constant(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Constant(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Constant(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Constant(array_length + add * i, upper_border)) + "\n";
+            }
+            System.IO.File.WriteAllText(@"C:\Users\konra\source\repos\AISD\different_sorting_algorithms\cases_4_Constant.txt", data_to_file);
+            data_to_file = "";
+
+
+            for (int i = 0; i < number_of_cases; i++)
+            {
+                data_to_file += string.Join(", ", Hillock(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Hillock(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Hillock(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Hillock(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Hillock(array_length + add * i, upper_border)) + "\n";
+            }
+            System.IO.File.WriteAllText(@"C:\Users\konra\source\repos\AISD\different_sorting_algorithms\cases_Hillock.txt", data_to_file);
+            data_to_file = "";
+
+
+            for (int i = 0; i < number_of_cases; i++)
+            {
+                data_to_file += string.Join(", ", Dale(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Dale(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Dale(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Dale(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", Dale(array_length + add * i, upper_border)) + "\n";
+            }
+            System.IO.File.WriteAllText(@"C:\Users\konra\source\repos\AISD\different_sorting_algorithms\cases_5_Dale.txt", data_to_file);
+            data_to_file = "";
+
+
+            for (int i = 0;  i < number_of_cases; i++)
+            {
+                data_to_file += string.Join(", ", FullyRand(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", FullyRand(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", FullyRand(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", FullyRand(array_length + add * i, upper_border)) + "\n";
+                data_to_file += string.Join(", ", FullyRand(array_length + add * i, upper_border)) + "\n";
+            }
+            System.IO.File.WriteAllText(@"C:\Users\konra\source\repos\AISD\different_sorting_algorithms\cases_1_FullyRand.txt", data_to_file);
+
         }
 
 
