@@ -12,7 +12,7 @@ namespace different_sorting_algorithms
         {
             const int cases_quantity = 20;
             const int cases_length = 10;
-            const int upper_number_size_border = 100;
+            const int upper_number_size_border = 10000;
             IntArraysGenerator intarraysgenerator = new IntArraysGenerator();
             Sorts sorts = new Sorts();
             Stopwatch stopwatch = new Stopwatch();

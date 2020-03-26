@@ -249,7 +249,7 @@ namespace different_sorting_algorithms
         private int Partition(int[] numbers, int left, int right, int p)
         {
             Random rand = new Random();
-            int pivot = 0;
+            int pivot = numbers[right];
 
             switch (p)
             {
