@@ -265,7 +265,7 @@ namespace different_sorting_algorithms
                     }
                 case 2:
                     {
-                        pivot = rand.Next(right);
+                        pivot = rand.Next(left,right);
                         break;
                     }
             }
